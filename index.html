@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Walmart Deals</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #0071ce;
+    }
+    p {
+      font-size: 18px;
+      color: #333;
+    }
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 20px;
+      background-color: #0071ce;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .btn:hover {
+      background-color: #005ea6;
+    }
+  </style>
+
+  <!-- Google Analytics (замени G-XXXXXXXXXX на свой ID при необходимости) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>🔥 Hot Walmart Deals!</h1>
+    <p>Check out our latest coupons and discounts below:</p>
+
+    <a href="https://example.com/patio" class="btn" onclick="trackClick('Patio & Garden')">$20 Off Patio & Garden</a>
+    <a href="https://example.com/grocery" class="btn" onclick="trackClick('Grocery')">$30 Off Grocery</a>
+    <a href="https://example.com/sitewide" class="btn" onclick="trackClick('Rollbacks & Sitewide')">65% Off Rollbacks + 20% Sitewide</a>
+  </div>
+
+  <script>
+    function trackClick(linkName) {
+      // Отправка на сервер
+      fetch('/track-click', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          link: linkName,
+          timestamp: new Date().toISOString()
+        })
+      }).catch(err => {
+        console.error('Tracking failed:', err);
+      });
+
+      // Отправка в GA (опционально)
+      gtag('event', 'click', {
+        'event_category': 'Button Click',
+        'event_label': linkName,
+        'transport_type': 'beacon'
+      });
+    }
+  </script>
+</body>
+</html>
